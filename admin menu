@@ -1,0 +1,53 @@
+-- FiveM ESX Admin Menu Script
+
+-- Define the Admin UI
+local adminMenu = {
+  title = "Admin Menu",
+  elements = {
+    {label = "Teleport to Waypoint", value = "tp_waypoint"},
+    {label = "Kick Player", value = "kick_player"},
+    {label = "Ban Player", value = "ban_player"},
+    {label = "Give Money", value = "give_money"},
+    {label = "Give Weapon", value = "give_weapon"},
+    {label = "Spectate Player", value = "spectate_player"},
+    {label = "Heal Player", value = "heal_player"},
+    {label = "Revive Player", value = "revive_player"},
+    {label = "Close", value = "close"}
+  }
+}
+
+-- Function to open the Admin UI
+function openAdminMenu(player)
+  TriggerClientEvent("adminmenu:open", player, adminMenu)
+end
+
+-- Register the Command
+RegisterCommand("admin", function(source, args, rawCommand)
+  local player = source
+  openAdminMenu(player)
+end, false)
+
+-- Handle the Admin UI Actions
+RegisterNetEvent("adminmenu:action")
+AddEventHandler("adminmenu:action", function(action)
+  local player = source
+  if action == "tp_waypoint" then
+    TriggerClientEvent("adminmenu:tp_waypoint", player)
+  elseif action == "kick_player" then
+    TriggerClientEvent("adminmenu:kick_player", player)
+  elseif action == "ban_player" then
+    TriggerClientEvent("adminmenu:ban_player", player)
+  elseif action == "give_money" then
+    TriggerClientEvent("adminmenu:give_money", player)
+  elseif action == "give_weapon" then
+    TriggerClientEvent("adminmenu:give_weapon", player)
+  elseif action == "spectate_player" then
+    TriggerClientEvent("adminmenu:spectate_player", player)
+  elseif action == "heal_player" then
+    TriggerClientEvent("adminmenu:heal_player", player)
+  elseif action == "revive_player" then
+    TriggerClientEvent("adminmenu:revive_player", player)
+  elseif action == "close" then
+    -- Close the Admin UI
+  end
+end)
